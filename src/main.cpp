@@ -4,7 +4,16 @@
 #include <vector>
 #include <Windows.h>
 
+//classes headers
+#include "User.h"
+
 using namespace std;
+
+
+//Function declarations
+int AdminLogin();
+
+
 
 
 
@@ -12,10 +21,10 @@ int main(){
 int LoginChoise;
 
 
-//Designing Menu system 
-cout << "**Digital Evidence and Case Management System**"<<endl;
-Sleep(3000);
+//Designing Menu system
 system("cls");
+cout << "**Digital Evidence and Case Management System**"<<endl;
+Sleep(2000);
 
 //Login Page
     start:
@@ -28,7 +37,10 @@ system("cls");
 
 
     if(LoginChoise  ==  1){
-
+        if(AdminLogin() == 99) {
+            system("cls");
+            goto start;
+        }
     }
     else if(LoginChoise == 2 ){
 
@@ -38,8 +50,8 @@ system("cls");
     }
     else{
         cout << "Choice must be from 1-3" <<endl;
-        Sleep(3000);
-        system("cls");;
+        Sleep(2000);
+        system("cls");
         goto start;
     }
 
@@ -48,4 +60,17 @@ system("cls");
 
 
 
+}
+
+int AdminLogin(){
+    int choice;
+    cout << "Enter\n";
+    cout << "\t1. Enter Credentials\n";
+    cout << "\t99. Back to Login page\n";
+    cin >> choice;
+
+    if(choice == 99) return choice;
+    else {
+        //Actual work such as authenticating user and pass first by reading admins info file
+    }
 }
