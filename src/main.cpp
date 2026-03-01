@@ -12,6 +12,8 @@ using namespace std;
 
 //Function declarations
 int AdminLogin();
+int AnalystLogin();
+int IntakeOfficerLogin();
 
 
 
@@ -70,7 +72,117 @@ int AdminLogin(){
     cin >> choice;
 
     if(choice == 99) return choice;
-    else {
-        //Actual work such as authenticating user and pass first by reading admins info file
+    if(choice != 99 && choice != 1) {
+        cout << "Invalid Choice\nBacking to Login page\n...";
+        return choice;
     }
+    
+    string loginUserInput, loginUserPass;
+    cout << "Enter login id";
+    //input id
+    cout << "Enter password";
+    //input pass
+    cout << "Verifying Credentials...\n";
+    //Call verifying function with relevent user id and pass file which then return bool
+
+    //if Not verified 
+        //User can enter credentials three 3 only for preventing brute force attack then send back to login page
+    /*
+    if() {
+        cout << "Wrong Credentials\n";
+    }
+    */
+    //if verified
+    /*
+    if() {
+        cout << "Logged In successful\n";
+        //Update the log file
+        //Transfer to Admin Rolls (Make Seprate functions for each roll)
+    }
+    */
+
+    //Actual work such as authenticating user and pass first by reading admins info file
+
+}
+
+int AnalystLogin(){
+    int choice;
+    cout << "Enter\n";
+    cout << "\t1. Enter Credentials\n";
+    cout << "\t99. Back to Login page\n";
+    cin >> choice;
+
+    if(choice == 99) return choice;
+    if(choice != 99 && choice != 1) {
+        cout << "Invalid Choice\nBacking to Login page\n...";
+        return choice;
+    }
+    
+    string loginUserInput, loginUserPass;
+    cout << "Enter login id";
+    //input id
+    cout << "Enter password";
+    //input pass
+    cout << "Verifying Credentials...\n";
+    //Call verifying function with relevent user id and pass file which then return bool
+
+    //if Not verified 
+        //User can enter credentials three 3 only for preventing brute force attack then send back to login page
+    /*
+    if() {
+        cout << "Wrong Credentials\n";
+    }
+    */
+    //if verified
+    /*
+    if() {
+        cout << "Logged In successful\n";
+        //Update the log file
+        //Transfer to Admin Rolls (Make Seprate functions for each roll)
+    }
+    */
+
+    //Actual work such as authenticating user and pass first by reading admins info file
+
+}
+
+int IntakeOfficerLogin(){
+    int choice;
+    cout << "Enter\n";
+    cout << "\t1. Enter Credentials\n";
+    cout << "\t99. Back to Login page\n";
+    cin >> choice;
+
+    if(choice == 99) return choice;
+    if(choice != 99 && choice != 1) {
+        cout << "Invalid Choice\nBacking to Login page\n...";
+        return choice;
+    }
+    
+    string loginUserInput, loginUserPass;
+    cout << "Enter login id";
+    //input id
+    cout << "Enter password";
+    //input pass
+    cout << "Verifying Credentials...\n";
+    //Call verifying function with relevent user id and pass file which then return bool
+
+    //if Not verified 
+        //User can enter credentials three 3 only for preventing brute force attack then send back to login page
+    /*
+    if() {
+        cout << "Wrong Credentials\n";
+    }
+    */
+    //if verified
+    /*
+    if() {
+        cout << "Logged In successful\n";
+        //Update the log file
+        //Transfer to Admin Rolls (Make Seprate functions for each roll)
+    }
+    */
+
+    //Actual work such as authenticating user and pass first by reading admins info file
+
 }
