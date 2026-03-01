@@ -12,7 +12,8 @@ class User{
         string userRole;
     public:
         User(string name, string userId, string userCode, string userRole): name(name), userID(userId), userCode(userCode), userRole(userRole){}
-    
+    virtual void displayDetails() = 0; 
+    //Loggs function should be made
 };
 class Admin: public User {
 
