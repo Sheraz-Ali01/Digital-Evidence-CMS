@@ -1,0 +1,2 @@
+Number|Name|UserID|Password|UserCode|UserRole
+1|Ali|AD01|#$%^tyg|US01|Admin
