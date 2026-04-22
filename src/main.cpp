@@ -8,6 +8,7 @@
 #include <functional>     //Allows storing functions
 #include <thread>         //For sleep (cross platform)
 #include <chrono>         //Used with thread
+#include <sstream>        //For stringstream
 
 //classes headers
 #include "User.h"
@@ -18,9 +19,10 @@ using namespace std;
 
 
 //Function declarations
-int AdminLogin();
-int AnalystLogin();
-int IntakeOfficerLogin();
+int AdminRoles();
+int AnalystRoles();
+int IntakeOfficerRoles();
+User* loginUser(string userName, string userPass, const string& filename);
 
 
 
@@ -31,9 +33,9 @@ int main(){
 
     //Map the login strategies
     unordered_map<int, function<int()>> loginStrategies = {
-        {1, AdminLogin},
-        {2, AnalystLogin},
-        {3, IntakeOfficerLogin},
+        {1, AdminRoles},
+        {2, AnalystRoles},
+        {3, IntakeOfficerRoles},
 
     };
 
@@ -64,33 +66,17 @@ int main(){
             cout <<"Choice must be from 1-3\n";
         }
 
-        /*
-        if(LoginChoise  ==  1){
-            if(AdminLogin() == 99) {
-                system("cls");
-                goto start;
-            }
-        }
-        else if(LoginChoise == 2 ){
 
-        }
-        else if(LoginChoise == 3){
-
-        }
-        else{
-            cout << "Choice must be from 1-3" <<endl;
-            Sleep(2000);
-            system("cls");
-            goto start;
-        }
-        */
-       
+        
     }
   
 
 }
 
-int AdminLogin(){
+int AdminRoles(){
+    User* CurrentLoggedAdmin = nullptr;
+
+    //Design login menu of admin
     int choice;
     cout << "Enter\n";
     cout << "\t1. Enter Credentials\n";
@@ -102,131 +88,186 @@ int AdminLogin(){
         cout << "Invalid Choice\n";
         return 99;
     }
-    
+    int num=0;
+    while(true){
+        //Taking credentials
+        string loginUserInput, loginUserPass;
+        cout << "Enter login id";
+        cin >> loginUserInput;
+        cout << "Enter password";
+        cin >> loginUserPass;
+        cout << "Verifying Credentials...\n";
 
-    string loginUserInput, loginUserPass;
-    cout << "Enter login id";
-    cin >> loginUserInput;
-    cout << "Enter password";
-    cin >> loginUserPass;
-    cout << "Verifying Credentials...\n";
+        this_thread::sleep_for(chrono::seconds(2));
 
-    this_thread::sleep_for(chrono::seconds(2));
-
-    ifstream adminfile("E:\Projects\Digital Evidence and Case Management System Sem02 (OOP)\Digital-Evidence-CMS\data\admin.txt", ios::app);
-    if(!adminfile) return 99;
-    
-    string id, pass, num;
-    //int num;
-    Admin admin();
-    while(getline(adminfile, num, '|' ) && getline(adminfile, id, '|') && getline(adminfile, pass, '|')) {
-        if(!(id==loginUserInput && pass==loginUserPass)) {
-            cout << "Wrong credentials\n";
+        string adminfile = "E:\Projects\Digital Evidence and Case Management System Sem02 (OOP)\Digital-Evidence-CMS\data\admin.txt";
+            
+        //call login function
+        CurrentLoggedAdmin = loginUser(loginUserInput, loginUserPass, adminfile);
+        
+        //if Not verified 
+            //User can enter credentials three 3 only for preventing brute force attack then send back to login page
+        if(CurrentLoggedAdmin!=nullptr) break;
+        if(num <=3){
+            cout << "Try again\n";
+            num++;
+            system("cls");
+            continue;
+        }else if (num > 3){
+            cout <<"Login limit exceeds\n";
+            system("cls");
             return 99;
+        }     
+    }
+
+    //Design the Main admin menu where list all the functions of admin
+
+    
+
+
+    
+   
+}
+
+int AnalystRoles(){
+    User* CurrentLoggedAnalyst = nullptr;
+
+    //Design login menu of admin
+    int choice;
+    cout << "Enter\n";
+    cout << "\t1. Enter Credentials\n";
+    cout << "\t99. Back to Login page\n";
+    cin >> choice;
+
+    if(choice == 99) return choice;
+    if(choice != 99 && choice != 1) {
+        cout << "Invalid Choice\n";
+        return 99;
+    }
+    int num=0;
+    while(true){
+        //Taking credentials
+        string loginUserInput, loginUserPass;
+        cout << "Enter login id";
+        cin >> loginUserInput;
+        cout << "Enter password";
+        cin >> loginUserPass;
+        cout << "Verifying Credentials...\n";
+
+        this_thread::sleep_for(chrono::seconds(2));
+
+        string analystfile = "E:\Projects\Digital Evidence and Case Management System Sem02 (OOP)\Digital-Evidence-CMS\data\analyst.txt";
+            
+        //call login function
+        CurrentLoggedAnalyst = loginUser(loginUserInput, loginUserPass, analystfile);
+        
+        //if Not verified 
+            //User can enter credentials three 3 only for preventing brute force attack then send back to login page
+        if(CurrentLoggedAnalyst!=nullptr) break;
+        if(num <=3){
+            cout << "Try again\n";
+            num++;
+            system("cls");
+            continue;
+        }else if (num > 3){
+            cout <<"Login limit exceeds\n";
+            system("cls");
+            return 99;
+        }     
+    }
+
+    //Design the Main admin menu where list all the functions of admin
+
+}
+
+int IntakeOfficerRoles(){ 
+    User* CurrentLoggedIntakeOfficer = nullptr;
+
+    //Design login menu of admin
+    int choice;
+    cout << "Enter\n";
+    cout << "\t1. Enter Credentials\n";
+    cout << "\t99. Back to Login page\n";
+    cin >> choice;
+
+    if(choice == 99) return choice;
+    if(choice != 99 && choice != 1) {
+        cout << "Invalid Choice\n";
+        return 99;
+    }
+    int num=0;
+    while(true){
+        //Taking credentials
+        string loginUserInput, loginUserPass;
+        cout << "Enter login id";
+        cin >> loginUserInput;
+        cout << "Enter password";
+        cin >> loginUserPass;
+        cout << "Verifying Credentials...\n";
+
+        this_thread::sleep_for(chrono::seconds(2));
+
+        string IntakeOfficerfile = "E:\Projects\Digital Evidence and Case Management System Sem02 (OOP)\Digital-Evidence-CMS\data\IntakeOfficer.txt";
+            
+        //call login function
+        CurrentLoggedIntakeOfficer = loginUser(loginUserInput, loginUserPass, IntakeOfficerfile);
+        
+        //if Not verified 
+            //User can enter credentials three 3 only for preventing brute force attack then send back to login page
+        if(CurrentLoggedIntakeOfficer!=nullptr) break;
+        if(num <=3){
+            cout << "Try again\n";
+            num++;
+            system("cls");
+            continue;
+        }else if (num > 3){
+            cout <<"Login limit exceeds\n";
+            system("cls");
+            return 99;
+        }     
+    }
+
+    //Design the Main admin menu where list all the functions of admin
+
+}
+
+User* loginUser(string userName, string userPass, const string& filename){
+    User* loggedInUser = nullptr;
+    string line;
+    ifstream file(filename);
+    if(!file){
+        cout << "Error!\tUnable to open file\n";
+        return nullptr;
+    }
+    
+    while(getline(file,line)){
+        stringstream ss(line);
+        string piecesInfo;
+        vector<string> data;
+
+        while(getline(ss, piecesInfo, '|')){
+            data.push_back(piecesInfo);
         }
-
+        
+        if(data[1]==userName && data[2]==userPass){ //MatchFound
+            if(data[4]=="Admin"){
+                loggedInUser = new Admin(data[0], data[1], data[3], data[4], stoi(data[5]));
+            }
+            else if(data[4]=="Analyst"){
+                loggedInUser = new Analyst(data[0], data[1], data[3], data[4], stoi(data[5]));
+            }
+            else if(data[4]=="IntakeOfficer"){
+                loggedInUser = new IntakeOfficer(data[0], data[1], data[3], data[4], stoi(data[5]));
+            }
+        }
+        
     }
-
-    //Call verifying function with relevent user id and pass file which then return bool
-
-    //if Not verified 
-        //User can enter credentials three 3 only for preventing brute force attack then send back to login page
-    /*
-    if() {
-        cout << "Wrong Credentials\n";
+    file.close();
+    if(loggedInUser==nullptr) {
+        cout << "Invalid username or password" << endl;
+        this_thread::sleep_for(chrono::seconds(2));
     }
-    */
-    //if verifieed
-    /*
-    if() {
-        cout << "Logged In successful\n";
-        //Update the log file
-        //Transfer to Admin Rolls (Make Seprate functions for each roll)
-    }
-    */
+    return loggedInUser;
 
-    //Actual work such as authenticating user and pass first by reading admins info file
-
-}
-
-int AnalystLogin(){
-    int choice;
-    cout << "Enter\n";
-    cout << "\t1. Enter Credentials\n";
-    cout << "\t99. Back to Login page\n";
-    cin >> choice;
-
-    if(choice == 99) return choice;
-    if(choice != 99 && choice != 1) {
-        cout << "Invalid Choice\nBacking to Login page\n...";
-        return choice;
-    }
-    
-    string loginUserInput, loginUserPass;
-    cout << "Enter login id";
-    //input id
-    cout << "Enter password";
-    //input pass
-    cout << "Verifying Credentials...\n";
-    //Call verifying function with relevent user id and pass file which then return bool
-
-    //if Not verified 
-        //User can enter credentials three 3 only for preventing brute force attack then send back to login page
-    /*
-    if() {
-        cout << "Wrong Credentials\n";
-    }
-    */
-    //if verified
-    /*
-    if() {
-        cout << "Logged In successful\n";
-        //Update the log file
-        //Transfer to Admin Rolls (Make Seprate functions for each roll)
-    }
-    */
-
-    //Actual work such as authenticating user and pass first by reading admins info file
-
-}
-
-int IntakeOfficerLogin(){
-    int choice;
-    cout << "Enter\n";
-    cout << "\t1. Enter Credentials\n";
-    cout << "\t99. Back to Login page\n";
-    cin >> choice;
-
-    if(choice == 99) return choice;
-    if(choice != 99 && choice != 1) {
-        cout << "Invalid Choice\nBacking to Login page\n...";
-        return choice;
-    }
-    
-    string loginUserInput, loginUserPass;
-    cout << "Enter login id";
-    //input id
-    cout << "Enter password";
-    //input pass
-    cout << "Verifying Credentials...\n";
-    //Call verifying function with relevent user id and pass file which then return bool
-
-    //if Not verified 
-        //User can enter credentials three 3 only for preventing brute force attack then send back to login page
-    /*
-    if() {
-        cout << "Wrong Credentials\n";
-    }
-    */
-    //if verified
-    /*
-    if() {
-        cout << "Logged In successful\n";
-        //Update the log file
-        //Transfer to Admin Rolls (Make Seprate functions for each roll)
-    }
-    */
-
-    //Actual work such as authenticating user and pass first by reading admins info file
 
 }

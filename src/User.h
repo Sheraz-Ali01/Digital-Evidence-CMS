@@ -37,35 +37,52 @@ void User::saveInforToFile() {
 };
 
 void User::displayInfo() {
-    cout << "ID: " << userID << endl;
-    cout << "Name: " << name << endl;
-    cout << "Code: " << userCode << endl;
-    cout << "Role: " << userRole << endl;
+    
 };
 int User::number = 0;
 
 
-
-
-
-
-
-
-
-
-
 class Admin: public User {
-    static int num;
     int caseVerified;
 
 public:
-    void setValues(int num, string name, string userId, string userRole, int caseVer){
+    Admin(string name, string userId, string userCode, string userRole, int caseVerified): caseVerified(caseVerified), User(name, userId, userCode,  userRole){}
+    //void setValues(int num, string name, string userId, string userRole, int caseVer){}
 
-    }
+    void displayDetails() override {
+    cout << "ID: " << userID << endl;
+    cout << "Name: " << name << endl;
+    cout << "Code: " << userCode << endl;
+    cout << "Role: " << userRole << endl;
+    cout << "Case Verified : " << caseVerified << endl;
+    };
 };
+
 class Analyst: public User {
+    int casenvestigated;
+public:
+    Analyst( string name, string userId, string userCode, string userRole,int casenvestigated): casenvestigated(casenvestigated), User(name, userId, userCode, userRole){}
+
+    void displayDetails() override {
+    cout << "ID: " << userID << endl;
+    cout << "Name: " << name << endl;
+    cout << "Code: " << userCode << endl;
+    cout << "Role: " << userRole << endl;
+    cout << "Case Investegated : " << casenvestigated << endl;
+    };
+
 
 };
 class IntakeOfficer: public User {
     int caseOpened;
+public:
+    IntakeOfficer(string name, string userId, string userCode, string userRole, int caseOpened): caseOpened(caseOpened), User(name, userId, userCode, userRole){}
+
+    void displayDetails() override {
+    cout << "ID: " << userID << endl;
+    cout << "Name: " << name << endl;
+    cout << "Code: " << userCode << endl;
+    cout << "Role: " << userRole << endl;
+    cout << "Case Opened : " << caseOpened << endl;
+    };
 };
