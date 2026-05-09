@@ -232,7 +232,7 @@ void Case::saveCase() const {
     cout << "Case is being save...";
     //Sleep(2000);
     
-    ofstream outFile(filename, ios::app);
+    ofstream outFile(filename, ios::trunc);
     
     if (!outFile.is_open()) {
         cerr << "ERROR: Could not open file for saving case: " << filename << endl;
